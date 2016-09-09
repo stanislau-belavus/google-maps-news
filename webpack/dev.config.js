@@ -1,9 +1,11 @@
 var Webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
-    entry: __dirname + '../src/client/',
+    entry: path.join(__dirname, '../src/client/index.es'),
+
     output: {
-        path: __dirname + '../bundle/',
+        path: path.join(__dirname, '../bundle/'),
         pablicPath: '',
         filename: 'bundle.js'
     },
@@ -15,6 +17,7 @@ module.exports = {
     },
 
     resolve: {
-        extentions: ['', '.', 'js', 'es'] 
+        extensions: ['', '.', '.js', '.es'],
+        root: ['node_modules', 'src/client']
     }
 };
