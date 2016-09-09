@@ -20,5 +20,8 @@
     "bluebird": "^3.4.6",
     "express": "4.14.0",
     "webpack": "1.13.2"
+  },
+  "dependencies": {
+    "ejs": "^2.5.2"
   }
 }
