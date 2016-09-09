@@ -19,11 +19,8 @@
     "babel-preset-es2015": "^6.14.0",
     "bluebird": "^3.4.6",
     "express": "4.14.0",
-<<<<<<< HEAD
     "mongoose": "^4.6.0",
-=======
     "nodemon": "^1.10.2",
->>>>>>> 56f14aa4a8f68cb1a2a412e55a4f254088db117e
     "webpack": "1.13.2"
   },
   "dependencies": {
