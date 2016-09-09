@@ -1,0 +1,21 @@
+{
+    "name": "google-maps-news",
+    "version": "0.0.1",
+    "description": "News on Google Map",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/stanislau-belavus/google-maps-news.git"
+    },
+
+    "scripts": {
+        "build": "webpack "
+    },
+
+    "author": "Dream Team",
+    "license": "MIT",
+
+    "devDependencies": {
+        "express": "4.14.0",
+        "webpack": "1.13.2"
+    }
+}
