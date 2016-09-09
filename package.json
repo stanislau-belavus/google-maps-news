@@ -1,21 +1,21 @@
 {
-    "name": "google-maps-news",
-    "version": "0.0.1",
-    "description": "News on Google Map",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/stanislau-belavus/google-maps-news.git"
-    },
-
-    "scripts": {
-        "build": "webpack "
-    },
-
-    "author": "Dream Team",
-    "license": "MIT",
-
-    "devDependencies": {
-        "express": "4.14.0",
-        "webpack": "1.13.2"
-    }
+  "name": "google-maps-news",
+  "version": "0.0.1",
+  "description": "News on Google Map",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stanislau-belavus/google-maps-news.git"
+  },
+  "scripts": {
+    "build": "webpack --config ./webpack/dev.config.js"
+  },
+  "author": "Dream Team",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "express": "4.14.0",
+    "webpack": "1.13.2"
+  }
 }
