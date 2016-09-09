@@ -16,6 +16,7 @@ export const setup = (app) => {
 
         app.use(staicRouter);
         app.use(express.static(path.join(__dirname, '../../../')));
+        
 
         app.listen(EXPRESS_PORT, () => {
             resolve();

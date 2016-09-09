@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "webpack --config ./webpack/dev.config.js",
-    "server": "./node_modules/.bin/nodemon --exec babel-node ./src/server/dev_index.es"
+    "server": "./node_modules/.bin/nodemon --exec babel-node ./src/server/index.es"
   },
   "author": "Dream Team",
   "license": "MIT",
