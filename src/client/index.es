@@ -1,4 +1,4 @@
 import main from 'main';
 
 main();
-console.log('WWW');
+console.log('INDEX');

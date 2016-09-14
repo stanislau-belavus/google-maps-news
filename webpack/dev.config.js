@@ -16,8 +16,11 @@ module.exports = {
         ]
     },
 
+    aggregateTimeout: 100,
+
     resolve: {
         extensions: ['', '.', '.js', '.es'],
-        root: ['node_modules', 'src/client']
+        // root: ['node_modules', 'src/client']
+        modulesDirectories: ['node_modules', 'src/client']
     }
 };
