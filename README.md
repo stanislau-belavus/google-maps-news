@@ -3,6 +3,7 @@
 ## Require
 `npm v 3.10.8`
 `node v 6.5.0`
+mongoDB
 
 ## Build
 1. `npm i`
@@ -12,6 +13,7 @@
 
 ## Auth test
 
+## Test
 You can test registration using broswer console:
 ```
 AuthActions.register('loks', '1234', 'loks message').then(() => {
