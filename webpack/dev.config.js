@@ -22,5 +22,15 @@ module.exports = {
         extensions: ['', '.', '.js', '.es'],
         // root: ['node_modules', 'src/client']
         modulesDirectories: ['node_modules', 'src/client']
-    }
+    },
+
+    plugins: [
+
+        new Webpack.SourceMapDevToolPlugin({
+            exclude: 'node_modules',
+            columns: true,
+        }),
+
+        new Webpack.NoErrorsPlugin()
+    ]
 };

@@ -17,8 +17,8 @@ export default function() {
             });
 
     superagent
-            .get(`http://localhost:8081/example_get`)
-            .send({})
+            .get(`http://localhost:8081/example_get/fuck`)
+            .send()
             .end((error, response) => {
                 if (error) {
                     console.error(error);
@@ -26,4 +26,10 @@ export default function() {
                     console.log(response.body);
                 }
             });
+
+    superagent.get('http://localhost:8081/profile/info/bob').send().end((error, res) => {
+        if (!error) {
+            console.log(res.body);
+        }
+    });
 }

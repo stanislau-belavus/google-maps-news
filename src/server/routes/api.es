@@ -5,29 +5,30 @@ import * as ProfileController from '../controllers/profile';
 
 const router = express.Router();
 
-router.get('/example_get', (req, res) => {
+router.get('/example_get/:test', (req, res) => {
     res.json({
-        message: 'hello, nigger!'
+        message: `${req.params.test} you, nigger!`
     });
 });
 
 router.post('/example_post', (req, res) => {
     res.status(200).json({
-        message: req.body.message + ' nigger!'
+        message: req.body.message + ' nigga!'
     }).end();
 });
 
+// REAL API
 // sign in
 router.post('/pre_login', AuthController.preLogin);
-router.post('login', AuthController.login);
+router.post('/login', AuthController.login);
 
 // sign up
-router.post('pre_register', AuthController.preRegister);
-router.post('register', AuthController.register);
+router.post('/pre_register', AuthController.preRegister);
+router.post('/register', AuthController.register);
 
 // sign out
-router.post('logout', AuthController.logout);
+router.post('/logout', AuthController.logout);
 
-router.get('/profile', ProfileController.profileInfo)
+router.get('/profile/info/:username', ProfileController.profileInfo)
 
 export default router;
