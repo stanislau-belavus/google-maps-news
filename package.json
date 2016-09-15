@@ -9,7 +9,8 @@
   "scripts": {
     "build": "webpack --config ./webpack/dev.config.js",
     "watch": "webpack --config ./webpack/dev.config.js --watch --progress --colors",
-    "server": "./node_modules/.bin/nodemon --exec babel-node ./src/server/index.es"
+    "server": "./node_modules/.bin/nodemon --exec babel-node ./src/server/index.es",
+    "server-dev": "./node_modules/.bin/nodemon --exec babel-node ./src/server/index.es --inspect=9222"
   },
   "author": "Dream Team",
   "license": "MIT",
