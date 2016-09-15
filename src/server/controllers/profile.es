@@ -1,1 +1,4 @@
-console.log('profile');
+
+export const profileInfo = (req, res) => {
+    console.log('ProfileController.profileInfo');
+}
