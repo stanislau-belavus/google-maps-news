@@ -13,7 +13,8 @@ module.exports = {
     module: {
         loaders: [
             { test: /\.es$/, exclude: /node_modules/, loader: 'babel' },
-            { test: /\.json$/, loader: 'json' }
+            { test: /\.json$/, loader: 'json' },
+            { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' }
         ]
     },
 
