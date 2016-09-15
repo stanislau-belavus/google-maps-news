@@ -1,5 +1,10 @@
 # google-maps-news
 
+## Require
+node -v `v6.5.0`
+npm -v  `3.10.5`
+mongoDB
+
 ## Test
 
 You can test registration using broswer console:
