@@ -12,15 +12,17 @@ let mockStore = {
 
 // TODO implement it using DB
 
-export const save = (username, passwordHash, privateKey, secret_message) => {
+export const save = (username, passwordHash, privateKey, message) => {
     console.log(`ProfileActions.save username = ${username}`);
     mockStore[username] = {
         id: username,
         username,
         passwordHash,
         privateKey,
-        message: secret_message
+        message
     }
+
+    return Promise.resolve();
 }
 
 export const remove = (id) => {

@@ -104,6 +104,29 @@ export const register = (req, res) => {
 
     console.debug(`AuthController.register: username = ${username}, password = ${password}, message = ${message}`);
 
+    if (preRegisterMap[username]) {
+        const privateKey = preRegisterMap[username].key;
+        const serverRSAKey = preRegisterMap[username].serverRSAKey;
+
+        preRegisterMap[username].clear();
+
+        const passwordHash = serverRSAKey.decrypt(password, 'utf8');
+
+        ProfileActions.save(
+            username,
+            passwordHash,
+            privateKey,
+            message
+        ).then(() => {
+            console.debug('AuthController.register: success registration');
+            res.status(200).json({}).end();
+        })
+         .catch(() => {
+            console.warn('AuthController.register: something went wrong with save');
+            res.status(400).json({ message: 'fuck you, loser!' }).end();
+         });
+    }
+
 }
 
 export const logout = (req, res) => {
