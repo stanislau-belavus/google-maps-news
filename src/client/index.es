@@ -1,5 +1,13 @@
-import main from 'main';
+import * as AuthActions from 'actions/auth';
+import * as ProfileActions from 'actions/profile';
 
-main();
+// router
+import router from 'router';
 
-console.log('INDEX');
+// TODO: remove it after testing
+window.AuthActions = AuthActions;
+window.ProfileActions = ProfileActions;
+
+window.router = router;
+
+ProfileActions.getInfo('loks');
