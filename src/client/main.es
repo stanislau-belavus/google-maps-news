@@ -1,10 +1,23 @@
 import superagent from 'superagent';
 
+import * as AuthActions from 'actions/auth';
+
+// TODO: remove it after testing
+window.AuthActions = AuthActions;
+/*
+ use can test it via broswer console:
+```
+AuthActions.register('loks', '1234', 'loks message').then(() => {
+    console.log('Registration for "loks"` completed!');
+});
+```
+*/
+
 export default function() {
     console.log('hello function!!');
 
     superagent
-            .post(`http://localhost:8081/example_post`)
+            .post(`http://localhost:8081/api/example_post`)
             .send({
                 message: 'hello, dear, '
             })
@@ -17,7 +30,7 @@ export default function() {
             });
 
     superagent
-            .get(`http://localhost:8081/example_get/fuck`)
+            .get(`http://localhost:8081/api/example_get/fuck`)
             .send()
             .end((error, response) => {
                 if (error) {
@@ -27,7 +40,7 @@ export default function() {
                 }
             });
 
-    superagent.get('http://localhost:8081/profile/info/bob').send().end((error, res) => {
+    superagent.get('http://localhost:8081/api/profile/info/bob').send().end((error, res) => {
         if (!error) {
             console.log(res.body);
         }

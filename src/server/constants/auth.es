@@ -1,0 +1,2 @@
+
+export const PRE_REGISTER_TIMEOUT = 2000;

@@ -8,9 +8,10 @@ export const profileInfo = (req, res) => {
 
     console.log(`ProfileController.profileInfo username: ${username}`);
 
-    const user = ProfileActions.findByUserName(username);
-
-    res.json({
-        message: user && ProfileActions.getInfo(user)
+    ProfileActions.findByUserName(username).then((user) => {
+        res.json({
+            message: user && ProfileActions.getInfo(user.id)
+        });
     });
+
 }
