@@ -4,8 +4,8 @@ let mockStore = {
     bob: {
         id: 'bob',
         username: 'bob',
-        password: 123,
         passwordHash: 123,
+        privateKey: '123',
         message: 'bob is not a nigger!'
     }
 };
@@ -47,7 +47,15 @@ export const findByUserName = (username) => {
 
 export const findById = (id) => {
     console.log(`ProfileActions.findById id = ${id}`);
-    return mockStore[id];
+
+    return new Promise((resolve, reject) => {
+        const user = mockStore[id];
+        if (user) {
+            resolve(user);
+        } else {
+            reject();
+        }
+    });
 }
 
 export const getInfo = (id) => {

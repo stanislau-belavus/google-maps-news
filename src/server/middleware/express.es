@@ -1,18 +1,25 @@
 import Promise from 'bluebird';
 import path from 'path';
 import express from 'express';
-import cookieParser from 'cookie-parser';
-import expressSession from 'express-session';
-// express helper modules
-import bodyParser from 'body-parser';
 
+// security
 import passport from 'passport';
 
+// express helper modules
+import expressSession from 'express-session';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+
+// constants
 import { EXPRESS_PORT, SECRET } from '../constants/env';
 
 // routes
 import staicRouter from '../routes/static';
 import apiRouter from '../routes/api';
+import securityRouter from '../routes/security';
+
+// security strategies
+import setupLocalStrategy from '../passport_strategies/local';
 
 export const setup = (app) => {
 
@@ -36,6 +43,7 @@ export const setup = (app) => {
         }));
 
         // passport
+        setupLocalStrategy();
         app.use(passport.initialize());
         app.use(passport.session());
 
@@ -44,6 +52,7 @@ export const setup = (app) => {
         app.set('views', path.join(__dirname, '../views'));
 
         // route configuration
+        app.use(securityRouter);
         app.use(apiRouter);
         app.use(staicRouter);
         app.use(express.static(path.join(__dirname, '../../../')));
