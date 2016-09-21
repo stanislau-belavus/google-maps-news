@@ -15,7 +15,10 @@ export const initilize = (container) => {
 // options - data to template render
 export const render = (view, options) => {
     currentView.unload().then(() => {
-        view.initialize(options).then(() => {
+        view.initialize({
+            container: appContainer,
+            options
+        }).then(() => {
             view.preRender().then(() => {
                 view.render().then(() => {
                     view.postRender().then(() => {
