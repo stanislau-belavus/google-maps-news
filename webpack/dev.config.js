@@ -12,12 +12,27 @@ module.exports = {
 
     module: {
         loaders: [
-            { test: /\.es$/, exclude: /node_modules/, loader: "babel-loader" }
+            { test: /\.es$/, exclude: /node_modules/, loader: 'babel' },
+            { test: /\.json$/, loader: 'json' },
+            { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' }
         ]
     },
 
+    aggregateTimeout: 100,
+
     resolve: {
         extensions: ['', '.', '.js', '.es'],
-        root: ['node_modules', 'src/client']
-    }
+        // root: ['node_modules', 'src/client']
+        modulesDirectories: ['node_modules', 'src/client']
+    },
+
+    plugins: [
+
+        new Webpack.SourceMapDevToolPlugin({
+            exclude: 'node_modules',
+            columns: true,
+        }),
+
+        new Webpack.NoErrorsPlugin()
+    ]
 };
