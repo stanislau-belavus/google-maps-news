@@ -18,7 +18,6 @@ let viewOptions;
 router
     .on({
         [ROUTES.HOME]: () => {
-            // TODO: get options data from model
             Renderer.render(new Home(), viewOptions);
         },
         [ROUTES.SIGN_IN]: () => {
