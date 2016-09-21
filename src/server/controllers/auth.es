@@ -83,7 +83,7 @@ export const preLogin = (req, res) => {
 
             addToPreLoginMap(username, clientSalt);
 
-            console.debug(`AuthController.preLogin: pre login success`);
+            console.log(`AuthController.preLogin: pre login success`);
 
             res.status(200).json({
                 encryptedClientSalt,
@@ -126,7 +126,7 @@ export const login = (req, res) => {
                     console.warn('AuthController.login: passport authenticate failed logInError');
                     res.status(400).json({ message: 'fuck you loser' }).end();
                 } else {
-                    console.debug('AuthController.login: login success');
+                    console.log('AuthController.login: login success');
                     res.status(200).end();
                 }
             });
@@ -138,12 +138,12 @@ export const login = (req, res) => {
 }
 
 export const preRegister = (req, res) => {
-    console.debug('AuthController.preRegister');
+    console.log('AuthController.preRegister');
 
     // username - String
     // clientPublicKey - client public RSA key
     const { username, key } = req.body;
-    console.debug(`AuthController.preRegister: username = ${username}, clientPublicKey = ${key}`);
+    console.log(`AuthController.preRegister: username = ${username}, clientPublicKey = ${key}`);
 
     if (!username) {
         res.status(400).json({ message: 'fuck you loser' }).end();
@@ -166,7 +166,7 @@ export const preRegister = (req, res) => {
             console.warn('AuthController.preRegister: current user already registered');
         })
         .catch(() => {
-            console.debug(`AuthController.preRegister: start preRegestration`);
+            console.log(`AuthController.preRegister: start preRegestration`);
             const rsa = new NodeRSA(); // create empty rsa key
 
             var serverRSAKey = new NodeRSA({b: 512}); // create new rsa key
@@ -181,7 +181,7 @@ export const preRegister = (req, res) => {
 
             addToPreRegisterMap(username, passwordKey, serverRSAKey);
 
-            console.debug(`AuthController.preRegister: pre Registration success`);
+            console.log(`AuthController.preRegister: pre Registration success`);
 
             res.status(200).json({
                 encryptedPasswordKey,
@@ -202,7 +202,7 @@ export const register = (req, res) => {
 
     const { username, password, message } = req.body;
 
-    console.debug(`AuthController.register: username = ${username}, password = ${password}, message = ${message}`);
+    console.log(`AuthController.register: username = ${username}, password = ${password}, message = ${message}`);
 
     if (preRegisterMap[username]) {
         const privateKey = preRegisterMap[username].key; // k1
@@ -218,7 +218,7 @@ export const register = (req, res) => {
             privateKey,
             message
         ).then(() => {
-            console.debug('AuthController.register: success registration');
+            console.log('AuthController.register: success registration');
             res.status(200).end();
         })
          .catch(() => {
@@ -233,7 +233,7 @@ export const register = (req, res) => {
 }
 
 export const logout = (req, res) => {
-    console.debug('AuthController.logout');
+    console.log('AuthController.logout');
 
     req.logout();
     res.status(200).end();

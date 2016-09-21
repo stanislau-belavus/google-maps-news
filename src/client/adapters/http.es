@@ -11,7 +11,7 @@ export const post = (method, body = {}) => {
                     console.error(error)
                     reject(error);;
                 } else {
-                    console.debug(response.body);
+                    console.log(response.body);
                     resolve(response.body);
                 }
             });
@@ -29,7 +29,7 @@ export const get = (method) => {
                     console.error(error)
                     reject(error);;
                 } else {
-                    console.debug(response.body);
+                    (response.body);
                     resolve(response.body);
                 }
             });

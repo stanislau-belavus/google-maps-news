@@ -1,4 +1,5 @@
 import Promise from 'bluebird';
+import { Profile } from '../model';
 
 let mockStore = {
     bob: {
@@ -6,21 +7,20 @@ let mockStore = {
         username: 'bob',
         passwordHash: 123,
         privateKey: '123',
+        privateData: '',
         message: 'bob is not a nigger!'
     }
 };
 
 // TODO implement it using DB
 
-export const save = (username, passwordHash, privateKey, message) => {
-    console.log(`ProfileActions.save username = ${username}`);
-    mockStore[username] = {
-        id: username,
+export const save = (username, passwordHash, privateKey, privateData={}) => {
+    Profile.saveProfile({
         username,
         passwordHash,
         privateKey,
-        message
-    }
+        privateData
+    });
 
     return Promise.resolve();
 }

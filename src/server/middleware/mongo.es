@@ -13,7 +13,6 @@ export const setup = (app) => {
         mongoose.connection.once('open', () => {
             console.log('CONNECTION SUCCESS');
             app.mongo = mongoose.connection;
-            
         });
 
         mongoose.connection.on('error', (error) => {
