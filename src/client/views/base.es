@@ -1,3 +1,5 @@
+import './_base.styl';
+
 import * as Renderer from 'renderer';
 
 export default class BaseView {

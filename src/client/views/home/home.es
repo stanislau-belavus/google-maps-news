@@ -22,8 +22,8 @@ export default class Home extends Base {
     }
 
     postRender () {
-        this.signInButton = this.container.getElementsByClassName('sign_in_button')[0];
-        this.signUpButton = this.container.getElementsByClassName('sign_up_button')[0];
+        this.signInButton = this.container.getElementsByClassName('sign-in-button')[0];
+        this.signUpButton = this.container.getElementsByClassName('sign-up-button')[0];
 
         this.signInButton.addEventListener('click', this.onSignInClick);
         this.signUpButton.addEventListener('click', this.onSignUpClick);
@@ -33,8 +33,9 @@ export default class Home extends Base {
 
     getTemplateData () {
         return '<div class="home">\
-            <button class="sign_in_button" >Sign in</button>\
-            <button class="sign_up_button" >Sign up</button>\
+            <h1 class="title">Home</h1>\
+            <button class="sign-in-button base-button" >Sign in</button>\
+            <button class="sign-up-button base-button" >Sign up</button>\
         </div>';
     }
 
