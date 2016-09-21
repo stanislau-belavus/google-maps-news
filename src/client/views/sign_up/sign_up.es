@@ -5,6 +5,10 @@ import Base from 'views/base';
 
 // actions
 import * as RouterActions from 'router/actions';
+import * as AuthActions from 'actions/auth';
+
+// helpers
+import * as AuthHelpers from 'helpers/auth';
 
 export default class SignUp extends Base {
 
@@ -21,6 +25,14 @@ export default class SignUp extends Base {
         this.repeatPasswordInput;
 
         return Promise.resolve();
+    }
+
+    preRender () {
+        this.data.error = '';
+        this.data.email = '';
+        this.data.repeatPassword = '';
+        this.data.password = '';
+        return super.preRender();
     }
 
     postRender () {
@@ -43,26 +55,66 @@ export default class SignUp extends Base {
             <h2>Sign up</h2>\
             <div>\
                 <label class="base-label">Email</label>\
-                <input class="email-input base-input" />\
+                <input class="email-input base-input" value="{{email}}"/>\
             </div>\
             <div>\
             <label class="base-label">Password</label>\
-            <input class="password-input base-input" type="password"/>\
+            <input class="password-input base-input" type="password" value="{{password}}" />\
             </div>\
             <div>\
             <label class="base-label">Repeat password</label>\
-            <input class="repeat-password-input base-input" type="password" />\
+            <input class="repeat-password-input base-input" type="password"  value="{{repeatPassword}}" />\
             </div>\
             <button class="submit-button base-button">Submit</button>\
             <button class="home-button base-button">Home</button>\
+            <div class="error-label">{{error}}</div>\
             </div>';
     }
 
     // handlers
     submit = () => {
-        console.log(this.emailInput.value);
-        console.log(this.passwordInput.value);
-        console.log(this.repeatPasswordInput.value);
+        const email = this.emailInput.value;
+        const password = this.passwordInput.value;
+        const repeatPassword = this.repeatPasswordInput.value;
+
+        this.data.email = email;
+
+        if (!email || !AuthHelpers.validateEmail(email)) {
+            this.data.error = 'Incorrect email.';
+            this.update();
+            return;
+        }
+
+        if (!password || !repeatPassword) {
+            this.data.error = 'One of your password fields is empty.';
+            this.update();
+            return;
+        }
+
+        if (password !== repeatPassword) {
+            this.data.error = 'Please, type a same passwords.';
+            this.update();
+            return;
+        }
+
+        this.data.error = '';
+        this.data.password = password;
+        this.data.repeatPassword = repeatPassword;
+        this.update();
+
+        // send register
+        AuthActions.register(email, password, `super secret message ${email}`).then(this.successRegister).catch(this.failRegister);
+    };
+
+    successRegister = () => {
+        RouterActions.navigateToHome();
+    };
+
+    failRegister = () => {
+        this.data.error = 'An error.';
+        this.data.password = '';
+        this.data.repeatPassword = '';
+        this.update();
     };
 
     navigateToHome = () => {

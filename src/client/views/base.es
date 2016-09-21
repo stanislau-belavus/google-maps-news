@@ -35,6 +35,12 @@ export default class BaseView {
         return Promise.resolve();
     }
 
+    update () {
+        this.render().then(() => {
+            this.postRender();
+        });
+    }
+
     // should return markup.js template that will be rendered
     getTemplateData () {
         return '<div class="base"></div>';
