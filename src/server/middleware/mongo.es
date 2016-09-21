@@ -1,4 +1,3 @@
-import nconf from 'nconf';
 import Promise from 'bluebird';
 import mongoose from 'mongoose';
 import { DB_SETTINGS } from '../constants/env';
