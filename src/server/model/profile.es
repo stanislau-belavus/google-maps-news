@@ -1,7 +1,8 @@
 'use strict';
 
-import mongoose, { Schema } from 'mongoose';
+import async from 'async';
 import timestamp from 'mongoose-timestamp';
+import mongoose, { Schema } from 'mongoose';
 
 const ProfileSchema = new Schema({
     username: { type: String, required: true },
@@ -15,10 +16,31 @@ ProfileSchema.set('toJSON', { virtuals: true });
 
 ProfileSchema.plugin(timestamp);
 
-ProfileSchema.statics.saveProfile = function(condition) {
+ProfileSchema.statics.saveProfile = function(data={}) {
     return new Promise((resolve, reject) => {
-        const newProfile = new this(condition);
-        newProfile.save((error, data) => {
+        async.waterfall([(cb) => {
+            this.findOne({ username: data.username }).exec(cb);
+        }, (profile, cb) => {
+            if(!profile) {
+                const newProfile = new this(data);
+                newProfile.save((error) => { cb(error); }); 
+            }
+            else {
+                cb('This profile already exist!'); 
+            }
+        }], (error) => {
+            if (!error) {
+                resolve();
+            } else {
+                reject(error);
+            }
+        })
+    });
+};
+
+ProfileSchema.statics.removeById = (id) => {
+    return new Promise((resolve, reject) => {
+        this.remove({ _id: id }, (error, data) => {
             if (!error) {
                 resolve(data);
             } else {
@@ -27,8 +49,6 @@ ProfileSchema.statics.saveProfile = function(condition) {
         });
     });
 };
-
-ProfileSchema.statics.removeById = (condition) => {};
 
 ProfileSchema.statics.findByUserName = (condition) => {};
 

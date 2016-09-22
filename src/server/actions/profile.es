@@ -15,20 +15,16 @@ let mockStore = {
 // TODO implement it using DB
 
 export const save = (username, passwordHash, privateKey, privateData={}) => {
-    Profile.saveProfile({
+    return Profile.saveProfile({
         username,
         passwordHash,
         privateKey,
         privateData
     });
-
-    return Promise.resolve();
 }
 
 export const remove = (id) => {
-    console.log(`ProfileActions.remove id = ${id}`);
-    mockStore[id] = null;
-    delete mockStore[id];
+    return ProfileActions.removeById(id);
 }
 
 export const findByUserName = (username) => {
