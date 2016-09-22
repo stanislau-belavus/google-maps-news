@@ -15,19 +15,26 @@ export const initilize = (container) => {
 // options - data to template render
 export const render = (view, options) => {
     currentView.unload().then(() => {
-        view.initialize(options).then(() => {
-            view.preRender().then(() => {
-                view.render().then(() => {
-                    view.postRender().then(() => {
-                        currentView = view;
-                    });
-                });
-            });
-        });
+        renderComponent(view, options, appContainer);
     });
 }
 
 export const renderTemplate = (template, data = {}, container = appContainer) => {
     const insides = Mark.up(template, data);
     container.innerHTML = insides;
+}
+
+export const renderComponent = (view, options, container) => {
+    return view.initialize({
+        container,
+        options
+    }).then(() => {
+        return view.preRender().then(() => {
+            return view.render().then(() => {
+                return view.postRender().then(() => {
+                    currentView = view;
+                });
+            });
+        });
+    });
 }

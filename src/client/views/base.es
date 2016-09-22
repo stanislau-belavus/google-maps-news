@@ -1,9 +1,14 @@
+import './_base.styl';
+
 import * as Renderer from 'renderer';
 
 export default class BaseView {
-    initialize (options) {
+    initialize ({ container, options }) {
+        this.container = container || {};
+        this.options = options || {};
+
+        this.data = {};
         this.template = this.getTemplateData();
-        this.data = options;
 
         return Promise.resolve();
     }
@@ -25,7 +30,15 @@ export default class BaseView {
 
     // clean up data and destroy listeners
     unload () {
+        this.container.innerHTML = '';
+
         return Promise.resolve();
+    }
+
+    update () {
+        this.render().then(() => {
+            this.postRender();
+        });
     }
 
     // should return markup.js template that will be rendered
