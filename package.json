@@ -38,6 +38,7 @@
     "ejs": "^2.5.2",
     "express-session": "^1.14.1",
     "markup-js": "^1.5.21",
+    "mongoose-timestamp": "^0.6.0",
     "navigo": "^2.3.0",
     "node-rsa": "^0.4.1",
     "passport": "^0.3.2",

@@ -38,7 +38,7 @@ ProfileSchema.statics.saveProfile = function(data={}) {
     });
 };
 
-ProfileSchema.statics.removeById = (id) => {
+ProfileSchema.statics.removeById = function (id) {
     return new Promise((resolve, reject) => {
         this.remove({ _id: id }, (error, data) => {
             if (!error) {
@@ -50,12 +50,12 @@ ProfileSchema.statics.removeById = (id) => {
     });
 };
 
-ProfileSchema.statics.findByUserName = (username) => {
+ProfileSchema.statics.findByUserName = function (username) {
     return new Promise((resolve, reject) => {
         async.waterfall([(cb) => {
             this.findOne({ username }).exec(cb);
-        }], (data, error) => {
-            if (!error) {
+        }], (error, data) => {
+            if (!error && !!data) {
                 resolve(data);
             } else {
                 reject(error);
@@ -64,12 +64,12 @@ ProfileSchema.statics.findByUserName = (username) => {
     });
 };
 
-ProfileSchema.statics.findById = (id) => {
+ProfileSchema.statics.findById = function (id) {
     return new Promise((resolve, reject) => {
         async.waterfall([(cb) => {
             this.findOne({ _id: id }).exec(cb);
-        }], (data, error) => {
-            if (!error) {
+        }], (error, data) => {
+            if (!error && !!data) {
                 resolve(data);
             } else {
                 reject(error);
@@ -78,11 +78,11 @@ ProfileSchema.statics.findById = (id) => {
     });
 };
 
-ProfileSchema.statics.getInfo = (id) => {
+ProfileSchema.statics.getInfo = function (id) {
     return new Promise((resolve, reject) => {
         async.waterfall([(cb) => {
             this.findOne({ _id: id }).exec(cb);
-        }], (data, error) => {
+        }], (error, data) => {
             if (!error) {
                 resolve(data.privateData);
             } else {

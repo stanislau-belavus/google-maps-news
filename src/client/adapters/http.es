@@ -29,7 +29,6 @@ export const get = (method) => {
                     console.error(error)
                     reject(error);;
                 } else {
-                    (response.body);
                     resolve(response.body);
                 }
             });

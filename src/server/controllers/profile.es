@@ -10,7 +10,7 @@ export const profileInfo = (req, res) => {
 
     ProfileActions.findByUserName(username).then((user) => {
         res.json({
-            message: user && ProfileActions.getInfo(user.id)
+            privateData: user.privateData
         });
     });
 

@@ -17,8 +17,6 @@ window.RouterActions = RouterActions;
 window.Router = Router;
 window.Renderer = Renderer
 
-ProfileActions.getInfo('loks');
-
 // initialize app
 Renderer.initilize(document.getElementById('app-container'));
 // RouterActions.navigateToHome();

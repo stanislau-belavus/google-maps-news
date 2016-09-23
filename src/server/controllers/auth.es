@@ -56,6 +56,8 @@ export const preLogin = (req, res) => {
     // key - public client RSA key
     const { username, key } = req.body;
 
+    console.log(username);
+
     if (!username) {
         res.status(400).json({ message: 'fuck you loser' }).end();
 
@@ -198,11 +200,11 @@ export const register = (req, res) => {
 
     // username - String
     // password - encrypted by server rsa(hash(pwd, k1), serverKey)
-    // message - an security information
+    // privateData - an security information
 
-    const { username, password, message } = req.body;
+    const { username, password, privateData } = req.body;
 
-    console.log(`AuthController.register: username = ${username}, password = ${password}, message = ${message}`);
+    console.log(`AuthController.register: username = ${username}, password = ${password}, privateData = ${privateData}`);
 
     if (preRegisterMap[username]) {
         const privateKey = preRegisterMap[username].key; // k1
@@ -216,7 +218,7 @@ export const register = (req, res) => {
             username,
             passwordHash,
             privateKey,
-            message
+            privateData
         ).then(() => {
             console.log('AuthController.register: success registration');
             res.status(200).end();

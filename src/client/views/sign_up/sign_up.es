@@ -103,15 +103,26 @@ export default class SignUp extends Base {
         this.update();
 
         // send register
-        AuthActions.register(email, password, { message: 'Secret '}).then(this.successRegister).catch(this.failRegister);
+        AuthActions.register(email, password, { message: `Secret ${email}`}).then(this.successRegister).catch(this.failRegister);
     };
 
     successRegister = () => {
+        AuthActions.login(this.data.email, this.data.password).then(this.successLogin).catch(this.failLogin);
+    };
+
+    successLogin = () => {
         RouterActions.navigateToHome();
     };
 
+    failLogin = () => {
+        this.data.error = 'An login error.';
+        this.data.password = '';
+        this.data.repeatPassword = '';
+        this.update();
+    }
+
     failRegister = () => {
-        this.data.error = 'An error.';
+        this.data.error = 'An register error.';
         this.data.password = '';
         this.data.repeatPassword = '';
         this.update();
