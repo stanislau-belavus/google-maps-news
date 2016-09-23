@@ -50,10 +50,46 @@ ProfileSchema.statics.removeById = (id) => {
     });
 };
 
-ProfileSchema.statics.findByUserName = (condition) => {};
+ProfileSchema.statics.findByUserName = (username) => {
+    return new Promise((resolve, reject) => {
+        async.waterfall([(cb) => {
+            this.findOne({ username }).exec(cb);
+        }], (data, error) => {
+            if (!error) {
+                resolve(data);
+            } else {
+                reject(error);
+            }
+        })
+    });
+};
 
-ProfileSchema.statics.findById = (condition) => {};
+ProfileSchema.statics.findById = (id) => {
+    return new Promise((resolve, reject) => {
+        async.waterfall([(cb) => {
+            this.findOne({ _id: id }).exec(cb);
+        }], (data, error) => {
+            if (!error) {
+                resolve(data);
+            } else {
+                reject(error);
+            }
+        })
+    });
+};
 
-ProfileSchema.statics.getInfo = (condition) => {};
+ProfileSchema.statics.getInfo = (id) => {
+    return new Promise((resolve, reject) => {
+        async.waterfall([(cb) => {
+            this.findOne({ _id: id }).exec(cb);
+        }], (data, error) => {
+            if (!error) {
+                resolve(data.privateData);
+            } else {
+                reject(error);
+            }
+        })
+    });
+};
 
 export default mongoose.model('Profile', ProfileSchema);

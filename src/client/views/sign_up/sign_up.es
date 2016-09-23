@@ -103,7 +103,7 @@ export default class SignUp extends Base {
         this.update();
 
         // send register
-        AuthActions.register(email, password, `super secret message ${email}`).then(this.successRegister).catch(this.failRegister);
+        AuthActions.register(email, password, { message: 'Secret '}).then(this.successRegister).catch(this.failRegister);
     };
 
     successRegister = () => {
