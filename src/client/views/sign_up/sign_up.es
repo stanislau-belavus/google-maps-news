@@ -119,7 +119,7 @@ export default class SignUp extends Base {
         this.data.password = '';
         this.data.repeatPassword = '';
         this.update();
-    }
+    };
 
     failRegister = () => {
         this.data.error = 'An register error.';
