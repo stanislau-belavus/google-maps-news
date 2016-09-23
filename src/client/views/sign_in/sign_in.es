@@ -92,7 +92,7 @@ export default class SignIn extends Base {
     };
 
     successLogin = () => {
-        RouterActions.navigateToHome();
+        RouterActions.navigateToHome({ email: this.data.email });
     };
 
     failLogin = () => {
