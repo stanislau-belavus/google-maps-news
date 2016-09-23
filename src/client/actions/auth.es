@@ -5,7 +5,7 @@ import cryptoJS from 'crypto-js';
 import * as AuthAdapter from 'adapters/auth';
 
 // AFTER REGISTER USER SHOULD LOGIN TO GET AN ACCESS
-export const register = (username, password, message) => {
+export const register = (username, password, privateData) => {
     const rsa = new NodeRSA({
         b: 512,
     });
@@ -20,7 +20,7 @@ export const register = (username, password, message) => {
 
         const encryptedPasswordHash = rsaServer.encrypt(hashedPassword, 'base64');
 
-        return AuthAdapter.register(username, encryptedPasswordHash, message);
+        return AuthAdapter.register(username, encryptedPasswordHash, privateData);
     });
 }
 

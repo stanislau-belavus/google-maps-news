@@ -7,11 +7,11 @@ export const preRegister = (username, rsaPublicKey) => {
     });
 }
 
-export const register = (username, password, message) => {
+export const register = (username, password, privateData) => {
     return HttpAdapter.post('/api/register', {
         username,
         password,
-        message
+        privateData
     });
 }
 

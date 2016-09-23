@@ -12,14 +12,14 @@ export default () => {
         passwordField: 'password',
         passReqToCallback: true,
     }, ({ salt }, username, password, done) => {
-        console.debug(`LocalStrategy: username = ${username}, password = ${password}, salt = ${salt}`);
+        console.log(`LocalStrategy: username = ${username}, password = ${password}, salt = ${salt}`);
 
         ProfileActions.findByUserName(username)
             .then(({ passwordHash, id }) => {
                 const hashedPasswordHash = cryptoJS.HmacSHA512(passwordHash, salt).toString();
 
                 if (hashedPasswordHash === password) {
-                    console.debug(`LocalStrategy: login SUCCESS.`);
+                    console.log(`LocalStrategy: login SUCCESS.`);
                     done(null, {
                         id
                     });
@@ -36,15 +36,15 @@ export default () => {
     }));
 
     passport.serializeUser((profile, done) => {
-        console.debug(`serializeUser: profile = ${JSON.stringify(profile)}`);
+        console.log(`serializeUser: profile = ${JSON.stringify(profile)}`);
         done(null, profile.id);
     });
 
     passport.deserializeUser((id, done) => {
-        console.debug(`deserializeUser: id = ${id}`);
+        console.log(`deserializeUser: id = ${id}`);
 
         ProfileActions.findById(id).then((profile) => {
-            console.debug(`deserializeUser: profile = ${JSON.stringify(profile)}`);
+            console.log(`deserializeUser: profile = ${JSON.stringify(profile)}`);
             done(null, profile);
         }).catch(done);
     });
