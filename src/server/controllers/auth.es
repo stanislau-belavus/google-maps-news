@@ -59,14 +59,14 @@ export const preLogin = (req, res) => {
     console.log(username);
 
     if (!username) {
-        res.status(400).json({ message: 'fuck you loser' }).end();
+        res.status(400).json({ message: 'Text message' }).end();
 
         console.warn('AuthController.preLogin: no username passed');
         return;
     }
 
     if (preLoginMap[username]) {
-        res.status(400).json({ message: 'fuck you loser' }).end();
+        res.status(400).json({ message: 'Text message' }).end();
 
         console.warn('AuthController.preLogin: current user already preLogined');
         return;
@@ -93,7 +93,7 @@ export const preLogin = (req, res) => {
             }).end();
         })
         .catch(() => {
-            res.status(404).json({ message: 'fuck you loser' }).end();
+            res.status(404).json({ message: 'Text message' }).end();
 
             console.warn('AuthController.preLogin: not found current user');
         });
@@ -108,7 +108,7 @@ export const login = (req, res) => {
     const { username, password } = req.body;
 
     if (!preLoginMap[username]) {
-        res.status(400).json({ message: 'fuck you loser' }).end();
+        res.status(400).json({ message: 'Text message' }).end();
         console.warn('AuthController.login: cannot find user in pre login map');
         return;
     }
@@ -121,12 +121,12 @@ export const login = (req, res) => {
     passport.authenticate('local', (error, profile) => {
         if (error) {
             console.warn(`AuthController.login: passport authenticate failed error = ${error}`);
-            res.status(400).json({ message: 'fuck you loser' }).end();
+            res.status(400).json({ message: 'Text message' }).end();
         } else if (profile) {
             return req.logIn(profile, (logInError) => {
                 if (logInError) {
                     console.warn('AuthController.login: passport authenticate failed logInError');
-                    res.status(400).json({ message: 'fuck you loser' }).end();
+                    res.status(400).json({ message: 'Text message' }).end();
                 } else {
                     console.log('AuthController.login: login success');
                     res.status(200).end();
@@ -134,7 +134,7 @@ export const login = (req, res) => {
             });
         } else {
             console.warn('AuthController.login: user not found');
-            res.status(400).json({ message: 'fuck you loser' }).end();
+            res.status(400).json({ message: 'Text message' }).end();
         }
     })(req, res);
 }
@@ -148,14 +148,14 @@ export const preRegister = (req, res) => {
     console.log(`AuthController.preRegister: username = ${username}, clientPublicKey = ${key}`);
 
     if (!username) {
-        res.status(400).json({ message: 'fuck you loser' }).end();
+        res.status(400).json({ message: 'Text message' }).end();
 
         console.warn('AuthController.preRegister: no username passed');
         return;
     }
 
     if (preRegisterMap[username]) {
-        res.status(400).json({ message: 'fuck you loser' }).end();
+        res.status(400).json({ message: 'Text message' }).end();
 
         console.warn('AuthController.preRegister: current user already preRegistered');
         return;
@@ -163,7 +163,7 @@ export const preRegister = (req, res) => {
 
     ProfileActions.findByUserName(username)
         .then(() => {
-            res.status(404).json({ message: 'fuck you loser' }).end();
+            res.status(404).json({ message: 'Text message' }).end();
 
             console.warn('AuthController.preRegister: current user already registered');
         })
