@@ -8,8 +8,8 @@ export const post = (method, body = {}) => {
             .send(body)
             .end((error, response) => {
                 if (error) {
-                    console.error(error)
-                    reject(error);;
+                    console.error(error);
+                    reject(error);
                 } else {
                     console.log(response.body);
                     resolve(response.body);
@@ -26,8 +26,8 @@ export const get = (method) => {
             .send()
             .end((error, response) => {
                 if (error) {
-                    console.error(error)
-                    reject(error);;
+                    console.error(error);
+                    reject(error);
                 } else {
                     resolve(response.body);
                 }

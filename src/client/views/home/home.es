@@ -17,6 +17,10 @@ export default class Home extends Base {
         this.submitButton;
         this.logOutButton;
 
+        const email = window.localStorage.getItem('email');
+
+        this.options.email = this.options.email || email;
+
         this.isAuth = !!this.options.email;
 
         return Promise.resolve();
@@ -43,6 +47,9 @@ export default class Home extends Base {
         this.logOutButton.addEventListener('click', this.onLogOutClick);
 
         if (this.isAuth) {
+
+            window.localStorage.setItem('email', this.data.username || this.options.email);
+
             this.signInButton.classList.add('hidden');
             this.signUpButton.classList.add('hidden');
             this.logOutButton.classList.remove('hidden');
@@ -107,6 +114,8 @@ export default class Home extends Base {
 
         this.data.username = '';
         this.data.info = '';
+
+        window.localStorage.setItem('email', '');
 
         this.update();
     };
