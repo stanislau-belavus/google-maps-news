@@ -19,6 +19,6 @@ window.Renderer = Renderer
 
 // initialize app
 Renderer.initilize(document.getElementById('app-container'));
-// RouterActions.navigateToHome();
+RouterActions.navigateToHome();
 
 

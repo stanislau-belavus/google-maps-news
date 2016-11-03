@@ -59,7 +59,7 @@ export default class Home extends Base {
         return '<div class="home">\
             <h1 class="title">Home</h1>\
             <div>\
-                <label class="base-label">Input username</label>\
+                <label class="base-label">Input email</label>\
                 <input class="email-input base-input" value="{{username}}"/>\
             </div>\
             <button class="submit-button base-button" >Submit</button>\
@@ -104,6 +104,10 @@ export default class Home extends Base {
         AuthActions.logout(this.data.username);
         this.options.email = '';
         this.isAuth = '';
+
+        this.data.username = '';
+        this.data.info = '';
+
         this.update();
     };
 

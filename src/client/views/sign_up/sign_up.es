@@ -111,7 +111,7 @@ export default class SignUp extends Base {
     };
 
     successLogin = () => {
-        RouterActions.navigateToHome();
+        RouterActions.navigateToHome({ email: this.data.email });
     };
 
     failLogin = () => {
