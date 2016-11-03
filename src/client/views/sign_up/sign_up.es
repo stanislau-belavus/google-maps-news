@@ -51,7 +51,7 @@ export default class SignUp extends Base {
     }
 
     getTemplateData () {
-        return '<div class="sign_up">\
+        return '<div class="sign_up all-size">\
             <h2>Sign up</h2>\
             <div>\
                 <label class="base-label">Email</label>\

@@ -40,8 +40,8 @@ export default class Home extends Base {
     }
 
     getTemplateData () {
-        return '<div class="home">\
-            <h1 class="title">Home</h1>\
+        return '<div class="home all-size">\
+            <h1 class="title">HOME</h1>\
             <div>\
                 <label class="base-label">Input username</label>\
                 <input class="email-input base-input" value="{{username}}"/>\

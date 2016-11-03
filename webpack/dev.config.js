@@ -12,6 +12,7 @@ module.exports = {
 
     module: {
         loaders: [
+            { test: /\.(woff|woff2|ttf)$/, loader: 'url-loader?limit=100000' },
             { test: /\.es$/, exclude: /node_modules/, loader: 'babel' },
             { test: /\.json$/, loader: 'json' },
             { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' }
