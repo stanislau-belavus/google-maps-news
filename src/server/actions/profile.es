@@ -6,7 +6,10 @@ export const save = (username, passwordHash, privateKey, privateData={}) => {
         username,
         passwordHash,
         privateKey,
-        privateData
+        privateData: {
+            message: privateData.message,
+        },
+        role: privateData.role
     });
 }
 

@@ -4,11 +4,15 @@ import async from 'async';
 import timestamp from 'mongoose-timestamp';
 import mongoose, { Schema } from 'mongoose';
 
+// constants
+import { ProfileRole } from '../constants/profile';
+
 const ProfileSchema = new Schema({
     username: { type: String, required: true },
     passwordHash: { type: String, required: true },
     privateKey: { type: String, required: true },
     privateData: { type: Object, default: { } },
+    role: { type: String, default: ProfileRole.USER },
 });
 
 ProfileSchema.set('toObject', { virtuals: true });

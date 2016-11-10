@@ -100,9 +100,16 @@ export default class Home extends Base {
         this.update();
     };
 
-    getInfoFail = () => {
+    getInfoFail = (error) => {
+        const errorBody = error.response.body || {};
         this.data.info = '';
-        this.data.error = 'Current user is unauthentificated.';
+        console.log(errorBody);
+
+        if (errorBody.code === 401) {
+            this.data.error = 'ACCESS DENIED.';
+        } else {
+            this.data.error = 'Current user is unauthentificated.';
+        }
 
         this.update();
     };

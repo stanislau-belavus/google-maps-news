@@ -23,6 +23,7 @@ export default class SignUp extends Base {
         this.emailInput;
         this.passwordInput;
         this.repeatPasswordInput;
+        this.roleSelect;
 
         return Promise.resolve();
     }
@@ -42,6 +43,7 @@ export default class SignUp extends Base {
         this.emailInput = this.container.getElementsByClassName('email-input')[0];
         this.passwordInput = this.container.getElementsByClassName('password-input')[0];
         this.repeatPasswordInput = this.container.getElementsByClassName('repeat-password-input')[0];
+        this.roleSelect = this.container.getElementsByClassName('role-select')[0];
 
         // set handlers
         this.submitButton.addEventListener('click', this.submit);
@@ -63,7 +65,14 @@ export default class SignUp extends Base {
             </div>\
             <div>\
             <label class="base-label">Repeat password</label>\
-            <input class="repeat-password-input base-input" type="password"  value="{{repeatPassword}}" />\
+            <input class="repeat-password-input base-input" type="password" value="{{repeatPassword}}" />\
+            </div>\
+            <div>\
+            <label class="base-label">Select role</label>\
+            <select class="role-select base-select" >\
+                <option value="admin">Admin</option>\
+                <option value="user" selected="true">User</option>\
+            </select>\
             </div>\
             <button class="submit-button base-button">Submit</button>\
             <button class="home-button base-button">Home</button>\
@@ -73,6 +82,7 @@ export default class SignUp extends Base {
 
     // handlers
     submit = () => {
+        const role = this.roleSelect.value
         const email = this.emailInput.value;
         const password = this.passwordInput.value;
         const repeatPassword = this.repeatPasswordInput.value;
@@ -103,7 +113,7 @@ export default class SignUp extends Base {
         this.update();
 
         // send register
-        AuthActions.register(email, password, { message: `Secret ${email}`}).then(this.successRegister).catch(this.failRegister);
+        AuthActions.register(email, password, { message: `Secret ${email}`, role}).then(this.successRegister).catch(this.failRegister);
     };
 
     successRegister = () => {
