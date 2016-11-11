@@ -45,6 +45,7 @@
     "passport-local": "^1.0.0",
     "randomstring": "^1.1.5",
     "stylus": "^0.54.5",
-    "superagent": "^2.2.0"
+    "superagent": "^2.2.0",
+    "url-parse": "^1.1.7"
   }
 }

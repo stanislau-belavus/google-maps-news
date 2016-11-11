@@ -15,7 +15,7 @@ router.post('/api/register', AuthController.register);
 
 // sign in with google 
 router.post('/api/googleLogin', AuthController.googleLogin);
-router.post('api/googlecode', AuthController.googleCode);
+router.post('/api/googleToken', AuthController.googleToken);
 
 // sign out
 router.post('/api/logout', AuthController.logout);

@@ -8,6 +8,7 @@ import SignIn from 'views/sign_in/sign_in';
 import SignUp from 'views/sign_up/sign_up';
 import OAuth2 from 'views/oauth2/oauth2';
 
+import parse from 'url-parse';
 // constants
 import {
     ROUTES,
@@ -27,16 +28,12 @@ router
         [ROUTES.SIGN_UP]: () => {
             Renderer.render(new SignUp(), viewOptions);
         },
-        // [ROUTES.GOOGLE_AUTH]: (param, query) => {
-        //     console.log('query', param, query);
-        //     // access_token=ya29.Ci-TA9pllgMe6U6zeBgO-DPcQR3NYLBi5yPCSrJ7pVkLlwcXrVD0OWkU9EkKRTcinw&token_type=Bearer&expires_in=3600
-        //     Renderer.render(new OAuth2(), viewOptions);
-        // }
-    })
-    .on(ROUTES.GOOGLE_AUTH, (param, query) => {
-            console.log('query', param, query);
-            // access_token=ya29.Ci-TA9pllgMe6U6zeBgO-DPcQR3NYLBi5yPCSrJ7pVkLlwcXrVD0OWkU9EkKRTcinw&token_type=Bearer&expires_in=3600
-            Renderer.render(new OAuth2(), viewOptions);
+        [ROUTES.GOOGLE_AUTH]: () => {
+            const parsedUrl = parse(window.location.href, true);
+            console.log(parsedUrl);
+            const code = parsedUrl && parsedUrl.query ? parsedUrl.query.code : null;
+            Renderer.render(new OAuth2(), { code }); 
+        }
     })
     .resolve();
 

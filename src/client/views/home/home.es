@@ -11,6 +11,7 @@ import './_home.styl';
 export default class Home extends Base {
 
     initialize(container, options) {
+        console.log('OPTUIONS -- ', container, options);
         super.initialize(container, options);
         this.signInButton;
         this.signUpButton;
@@ -27,6 +28,7 @@ export default class Home extends Base {
     }
 
     preRender () {
+        this.data.name = this.options.name || '';
         this.data.username = this.options.email || '';
         this.data.error = '';
         this.data.info = '';
@@ -69,6 +71,7 @@ export default class Home extends Base {
                 <label class="base-label">Input email</label>\
                 <input class="email-input base-input" value="{{username}}"/>\
             </div>\
+            <div>{{name}}</div>\
             <button class="submit-button base-button" >Submit</button>\
             <button class="sign-in-button base-button" >Sign in</button>\
             <button class="sign-up-button base-button" >Sign up</button>\

@@ -42,3 +42,7 @@ export const googleLogin = () => {
         window.location= redirect;
     });
 }
+
+export const getGoogleToken = (code) => {
+    return HttpAdapter.post('/api/googleToken', { code });
+}

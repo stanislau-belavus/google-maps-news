@@ -243,8 +243,45 @@ export const logout = (req, res) => {
 }
 
 
-export const googleCode = (req, res) => {
-    console.log('GOOGLE CODE -- ');
+export const googleToken = (req, res) => {
+    const { code } = req.body;
+    console.log('GOOGLE CODE -- ', code);
+
+    superagent
+        .post('https://www.googleapis.com/oauth2/v4/token')
+        .withCredentials()
+        .query({
+            'client_id': '714312382973-hcpmkvuihepjnmm67l4j8a35mvha6c7u.apps.googleusercontent.com',
+            'client_secret': 'cYQyvN7mLFJ7ydzLDzUwt7o_',
+            'redirect_uri': 'http://localhost:8081/',
+            'grant_type': 'authorization_code',
+            'code': code
+        })
+        .end((error, response) => {
+            if (error) {
+                console.error(error);
+            } else {
+                superagent
+                    .get('https://www.googleapis.com/oauth2/v1/userinfo')
+                    .withCredentials()
+                    .query({
+                        'access_token': response.body.access_token,
+                        'client_id': '714312382973-hcpmkvuihepjnmm67l4j8a35mvha6c7u.apps.googleusercontent.com',
+                        'client_secret': 'cYQyvN7mLFJ7ydzLDzUwt7o_',
+                        'redirect_uri': 'http://localhost:8081/',
+                        'grant_type': 'authorization_code',
+                        'code': code
+                    })
+                    .end((err, resp) => {
+                        if (error) {
+                            console.error(error);
+                        } else {
+                            console.log('RESP -- ', resp);
+                            res.status(200).json(resp.body).end();
+                        }
+                    });
+            }
+        });
 }
 
 export const googleLogin = (req, res) => {
@@ -255,7 +292,7 @@ export const googleLogin = (req, res) => {
         .withCredentials()
         .query({
             'redirect_uri': 'http://localhost:8081/',
-            'response_type': 'token',
+            'response_type': 'code',
             'client_id': '714312382973-hcpmkvuihepjnmm67l4j8a35mvha6c7u.apps.googleusercontent.com',
             'scope': 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
         })
@@ -263,7 +300,6 @@ export const googleLogin = (req, res) => {
             if (error) {
                 console.error(error);
             } else {
-                console.log('SUCCESS -- ', response);
                 res.status(200).json({
                     redirect: response.redirects[0]
                 }).end();
