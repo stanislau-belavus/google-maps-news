@@ -26,6 +26,12 @@ export const setup = (app) => {
     return new Promise((resolve, reject) => {
         app.set('port', EXPRESS_PORT);
 
+        app.use((req, res, next) => {
+            res.header("Access-Control-Allow-Origin", true);
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            next();
+        });
+
         // body parser for http get/post requests
         app.use(
             bodyParser.urlencoded({

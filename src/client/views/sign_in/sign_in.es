@@ -34,11 +34,13 @@ export default class SignIn extends Base {
     postRender () {
         this.submitButton = this.container.getElementsByClassName('submit-button')[0];
         this.homeButton = this.container.getElementsByClassName('home-button')[0];
+        this.oauthGoogle = this.container.getElementsByClassName('oauth-google')[0];
 
         this.emailInput = this.container.getElementsByClassName('email-input')[0];
         this.passwordInput = this.container.getElementsByClassName('password-input')[0];
 
         // set handlers
+        this.oauthGoogle.addEventListener('click', this.signInWithGoogle);
         this.submitButton.addEventListener('click', this.submit);
         this.homeButton.addEventListener('click', this.navigateToHome);
 
@@ -47,21 +49,22 @@ export default class SignIn extends Base {
 
     getTemplateData () {
         return '<div class="sign_in">\
-            <h2>Sign in</h2>\
-            <div>\
-                <label class="base-label">Email</label>\
-                <input class="email-input base-input" value="{{email}}"/>\
-            </div>\
-            <div>\
-            <label class="base-label">Password</label>\
-            <input class="password-input base-input" type="password" value="{{password}}" />\
-            </div>\
-            <div>\
-            </div>\
-            <button class="submit-button base-button">Submit</button>\
-            <button class="home-button base-button">Home</button>\
-            <div class="error-label">{{error}}</div>\
-            </div>';
+                    <h2>Sign in</h2>\
+                    <div>\
+                        <label class="base-label">Email</label>\
+                        <input class="email-input base-input" value="{{email}}"/>\
+                    </div>\
+                    <div>\
+                        <label class="base-label">Password</label>\
+                        <input class="password-input base-input" type="password" value="{{password}}" />\
+                    </div>\
+                    <div class="oauth-google">G</div>\
+                    <div>\
+                    </div>\
+                        <button class="submit-button base-button">Submit</button>\
+                        <button class="home-button base-button">Home</button>\
+                    <div class="error-label">{{error}}</div>\
+                </div>';
     }
 
     // handlers
@@ -89,6 +92,10 @@ export default class SignIn extends Base {
 
         // send login
         AuthActions.login(email, password).then(this.successLogin).catch(this.failLogin);
+    };
+
+    signInWithGoogle = () => {
+        AuthActions.googleLogin();
     };
 
     successLogin = () => {

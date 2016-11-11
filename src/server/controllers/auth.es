@@ -8,6 +8,7 @@ import * as AuthConstants from '../constants/auth';
 import passport from 'passport';
 import NodeRSA from 'node-rsa';
 import RandomString from 'randomstring';
+import superagent from 'superagent';
 
 // PRIVATE
 let preLoginMap = {};
@@ -239,4 +240,69 @@ export const logout = (req, res) => {
 
     req.logout();
     res.status(200).end();
+}
+
+
+export const googleToken = (req, res) => {
+    const { code } = req.body;
+    console.log('GOOGLE CODE -- ', code);
+
+    superagent
+        .post('https://www.googleapis.com/oauth2/v4/token')
+        .withCredentials()
+        .query({
+            'client_id': '714312382973-hcpmkvuihepjnmm67l4j8a35mvha6c7u.apps.googleusercontent.com',
+            'client_secret': 'cYQyvN7mLFJ7ydzLDzUwt7o_',
+            'redirect_uri': 'http://localhost:8081/',
+            'grant_type': 'authorization_code',
+            'code': code
+        })
+        .end((error, response) => {
+            if (error) {
+                console.error(error);
+            } else {
+                superagent
+                    .get('https://www.googleapis.com/oauth2/v1/userinfo')
+                    .withCredentials()
+                    .query({
+                        'access_token': response.body.access_token,
+                        'client_id': '714312382973-hcpmkvuihepjnmm67l4j8a35mvha6c7u.apps.googleusercontent.com',
+                        'client_secret': 'cYQyvN7mLFJ7ydzLDzUwt7o_',
+                        'redirect_uri': 'http://localhost:8081/',
+                        'grant_type': 'authorization_code',
+                        'code': code
+                    })
+                    .end((err, resp) => {
+                        if (error) {
+                            console.error(error);
+                        } else {
+                            console.log('RESP -- ', resp);
+                            res.status(200).json(resp.body).end();
+                        }
+                    });
+            }
+        });
+}
+
+export const googleLogin = (req, res) => {
+    console.log('GOOGLE LOGIN ');
+
+    superagent
+        .get(`https://accounts.google.com/o/oauth2/v2/auth`)
+        .withCredentials()
+        .query({
+            'redirect_uri': 'http://localhost:8081/',
+            'response_type': 'code',
+            'client_id': '714312382973-hcpmkvuihepjnmm67l4j8a35mvha6c7u.apps.googleusercontent.com',
+            'scope': 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+        })
+        .end((error, response) => {
+            if (error) {
+                console.error(error);
+            } else {
+                res.status(200).json({
+                    redirect: response.redirects[0]
+                }).end();
+            }
+        });
 }

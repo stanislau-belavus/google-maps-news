@@ -44,6 +44,14 @@ export const login = (username, password) => {
     });
 }
 
+export const googleLogin = () => {
+    return AuthAdapter.googleLogin();
+}
+
+export const getGoogleToken = (code) => {
+    return AuthAdapter.getGoogleToken(code);
+}
+
 export const logout = (username) => {
     return AuthAdapter.logout(username);
 }
