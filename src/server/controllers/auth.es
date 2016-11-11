@@ -8,6 +8,7 @@ import * as AuthConstants from '../constants/auth';
 import passport from 'passport';
 import NodeRSA from 'node-rsa';
 import RandomString from 'randomstring';
+import superagent from 'superagent';
 
 // PRIVATE
 let preLoginMap = {};
@@ -239,4 +240,33 @@ export const logout = (req, res) => {
 
     req.logout();
     res.status(200).end();
+}
+
+
+export const googleCode = (req, res) => {
+    console.log('GOOGLE CODE -- ');
+}
+
+export const googleLogin = (req, res) => {
+    console.log('GOOGLE LOGIN ');
+
+    superagent
+        .get(`https://accounts.google.com/o/oauth2/v2/auth`)
+        .withCredentials()
+        .query({
+            'redirect_uri': 'http://localhost:8081/',
+            'response_type': 'token',
+            'client_id': '714312382973-hcpmkvuihepjnmm67l4j8a35mvha6c7u.apps.googleusercontent.com',
+            'scope': 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+        })
+        .end((error, response) => {
+            if (error) {
+                console.error(error);
+            } else {
+                console.log('SUCCESS -- ', response);
+                res.status(200).json({
+                    redirect: response.redirects[0]
+                }).end();
+            }
+        });
 }

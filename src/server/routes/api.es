@@ -13,6 +13,10 @@ router.post('/api/login', AuthController.login);
 router.post('/api/pre_register', AuthController.preRegister);
 router.post('/api/register', AuthController.register);
 
+// sign in with google 
+router.post('/api/googleLogin', AuthController.googleLogin);
+router.post('api/googlecode', AuthController.googleCode);
+
 // sign out
 router.post('/api/logout', AuthController.logout);
 

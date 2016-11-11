@@ -34,3 +34,11 @@ export const logout = (username) => {
         username
     });
 }
+
+export const googleLogin = () => {
+    HttpAdapter.post('/api/googleLogin', {})
+    .then((data) => {
+        const { redirect } = data;
+        window.location= redirect;
+    });
+}
